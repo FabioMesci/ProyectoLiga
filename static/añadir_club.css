@@ -1,0 +1,99 @@
+/* body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+} */
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.login-btn {
+    font-size: 16px;
+}
+
+.container {
+    padding: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.club-form, .club-list {
+    margin: 20px auto;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+form label, form input {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+form button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.editBtn, .deleteBtn{
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.club-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.club-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.club-list li:last-child {
+    border-bottom: none;
+}
+
+.club-list span {
+    flex: 1;
+}
+
+.club-list button {
+    margin-left: 10px;
+}
+.flash-error{
+    font-size: small;
+    display: inline-block;
+    background-color: #ffebe8;
+    border: 1px solid #dd3c10;
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 3px;
+}

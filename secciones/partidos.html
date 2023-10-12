@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liga - Partidos</title>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'partidos.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'header.css')}}">
+</head>
+<body>
+    <header>
+        <a href="{{url_for('Inicio')}}" class="logo">Liga</a>
+        <a href="{{url_for('LoginAdmin')}}" class="button_login">Iniciar Sesión</a>
+      </header>
+    <main>
+        <h1>Partidos</h1>
+        <div class="card-container">
+        {% for d in data %}
+        {% if loop.index % 3 == 1 %} {# Cada 3 partidos, comienza una nueva fila #}
+            <div class="card-row">
+            {% endif %}
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>{{ d.equipo_local }}  vs {{ d.equipo_visitante }} </h2>
+                        <p>Resultado: {{ d.goleslocales }} - {{ d.golesvisitantes }}</p>
+                        <p>Fecha: {{ d.fecha }}</p>
+                    </div>
+                    <div class="card-body">
+                        <p>Estadio: {{  d.nombre  }}</p>
+                        <button class="expand-btn">Ver más</button>
+                    </div>
+                    <div class="card-details">
+                        <p>Gol Local: {{ d.goleslocales }}</p>
+                        <p>Gol Visitante: {{ d.golesvisitantes }} </p>
+                        <p>Posesión: {{ d.porcentaje_posesion_local }}% - {{ d.porcentaje_posesion_visitante }}%</p>
+                        <p>Tiros: {{ d.tiros_local }} - {{ d.tiros_visitante }}</p>
+                        <p>Tiros a puerta: {{ d.tirosapuerta_local }} - {{ d.tirosapuerta_visitante }}</p>
+                        <p>Faltas: {{ d.faltas_local }} - {{ d.faltas_visitante }}</p>
+                        <p>Tarjetas amarillas: {{ d.tarjetas_amarillas_local }} - {{ d.tarjetas_amarillas_visitante }}</p>
+                        <p>Offside: {{ d.offsite_local }} - {{ d.offsite_visitante }}</p>
+                        <p>Corners: {{ d.corner_local }} - {{ d.corner_visitante }}</p>
+                    </div>
+                </div>
+            </div>
+            {% if loop.index % 3 == 0 or loop.last %} {# Cada 3 partidos o último partido, cierra la fila #}
+            </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+    </main>
+    <script>
+        const expandButtons = document.querySelectorAll(".expand-btn");
+
+        expandButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const card = button.closest(".card");
+                card.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

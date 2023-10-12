@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liga - Gestión de Partidos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'añadir_partido.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'header.css')}}">
+    <script>
+        function validarFecha() {
+            var fechaIngresada = new Date(document.getElementById('fecha').value);
+            var fechaActual = new Date();
+
+            // Compara las fechas ingresada y actual
+            if (fechaIngresada > fechaActual) {
+                // Si la fecha ingresada es mayor que la actual, deshabilita ciertos elementos
+                document.getElementById('gol_local').readOnly = true;
+                document.getElementById('gol_visitante').readOnly = true;
+                document.getElementById('posesion_local').readOnly = true;
+                document.getElementById('posesion_visitante').readOnly = true;
+                document.getElementById('tiros_local').readOnly = true;
+                document.getElementById('tiros_visitante').readOnly = true;
+                document.getElementById('tiros_puerta_local').readOnly = true;
+                document.getElementById('tiros_puerta_visitante').readOnly = true;
+                document.getElementById('faltas_local').readOnly = true;
+                document.getElementById('faltas_visitante').readOnly = true;
+                document.getElementById('tarjetas_amarillas_local').readOnly = true;
+                document.getElementById('tarjetas_amarillas_visitante').readOnly = true;
+                document.getElementById('offside_local').readOnly = true;
+                document.getElementById('offside_visitante').readOnly = true;
+                document.getElementById('corner_local').readOnly = true;
+                document.getElementById('corner_visitante').readOnly = true;}
+            else{    
+                // Si la fecha ingresada es menor o igual que la actual, habilita los elementos
+                document.getElementById('gol_local').readOnly = false;
+                document.getElementById('gol_visitante').readOnly = false;
+                document.getElementById('posesion_local').readOnly = false;
+                document.getElementById('posesion_visitante').readOnly = false;
+                document.getElementById('tiros_local').readOnly = false;
+                document.getElementById('tiros_visitante').readOnly = false;
+                document.getElementById('tiros_puerta_local').readOnly = false;
+                document.getElementById('tiros_puerta_visitante').readOnly = false;
+                document.getElementById('faltas_local').readOnly = false;
+                document.getElementById('faltas_visitante').readOnly = false;
+                document.getElementById('tarjetas_amarillas_local').readOnly = false;
+                document.getElementById('tarjetas_amarillas_visitante').readOnly = false;
+                document.getElementById('offside_local').readOnly = false;
+                document.getElementById('offside_visitante').readOnly = false;
+                document.getElementById('corner_local').readOnly = false;
+                document.getElementById('corner_visitante').readOnly = false;
+            }
+        }
+        
+    </script>
+</head>
+<body>
+    <header>
+        <a href="{{url_for('Inicio')}}" class="logo">Liga</a>
+        <a href="{{url_for('LoginAdmin')}}" class="button_login">Cerrar Sesión</a>
+      </header>
+    <div class="container">
+        <h1>Gestión de Partidos</h1>
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        {% for message in messages %}
+        <div class="flash-error">{{ message }}</div>   
+        {% endfor %} {% endif %} {% endwith %}
+        <div class="partido-form">
+            <h2>Agregar Partido</h2>
+            <form action="/addPartido" method="POST">
+                <label for="local">Equipo Local:</label>
+                <select name="equipo_local">
+                    {% for n in Nombresclub %}
+                    <option value="{{n.nombre_club}}">{{n.nombre_club}}</option>
+                    {% endfor %}
+                </select>
+                <!--Aqui esta la vaina que va a mostar los equipos que ya existen-->
+                <label for="visitante">Equipo Visitante:</label>
+                <select name="equipo_visitante">
+                    {% for n in Nombresclub %}
+                    <option value="{{n.nombre_club}}">{{n.nombre_club}}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="fecha">Fecha:</label>
+                <input type="date" onclick="validarFecha()" name="fecha" id="fecha" required>
+
+                <label for="estadio">Estadio:</label>
+                <select name="estadio" onclick="validarFecha()">
+                    {% for n in Nombreestadio %}
+                    <option value="{{n.nombre}}">{{n.nombre}}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="gol-local">Gol Local:</label>
+                <input type="number" onclick="validarFecha()" value="0" name="gol_local" id="gol_local" required>
+
+                <label for="gol_visitante">Gol Visitante:</label>
+                <input type="number" onclick="validarFecha()" value="0"" name="gol_visitante" id="gol_visitante" required>
+
+                <label for="posesion_local">Posesión Local (%):</label>
+                <input type="number" onclick="validarFecha()" value="0" name="posesion_local" id="posesion_local" required>
+
+                <label for="posesion_visitante">Posesión Visitante (%):</label>
+                <input type="number" onclick="validarFecha()" value="0" name="posesion_visitante" id="posesion_visitante" required>
+
+                <label for="tiros_local">Tiros Local:</label>
+                <input type="number" onclick="validarFecha()" value="0" name="tiros_local" id="tiros_local" required>
+
+                <label for="tiros_visitante">Tiros Visitante:</label>
+                <input type="number" onclick="validarFecha()" value="0" name="tiros_visitante" id="tiros_visitante" required>
+
+                <label for="tiros_puerta_local">Tiros a Puerta Local:</label>
+                <input type="number" onclick="validarFecha()" value="0" name="tiros_puerta_local" id="tiros_puerta_local" required>
+
+                <label for="tiros_puerta_visitante">Tiros a Puerta Visitante:</label>
+                <input type="number" onclick="validarFecha()" value="0" name="tiros_puerta_visitante" id="tiros_puerta_visitante" required>
+
+                <label for="faltas_local">Faltas Local:</label>
+                <input type="number" onclick="validarFecha()" value="0" name="faltas_local" id="faltas_local" required>
+
+                <label for="faltas_visitante">Faltas Visitante:</label>
+                <input type="number" onclick="validarFecha()" value="0" name="faltas_visitante" id="faltas_visitante" required>
+
+                <label for="tarjetas_amarillas_local">Tarjetas Amarillas Local:</label>
+                <input type="number" onclick="validarFecha()" value="0" name="tarjetas_amarillas_local" id="tarjetas_amarillas_local" required>
+
+                <label for="tarjetas_amarillas_visitante">Tarjetas Amarillas Visitante:</label>
+                <input type="number" onclick="validarFecha()" value="0" name="tarjetas_amarillas_visitante" id="tarjetas_amarillas_visitante" required>
+
+                <label for="offside_local">Offsite Local:</label>
+                <input type="number" onclick="validarFecha()" value="0" name="offside_local" id="offside_local" required>
+
+                <label for="offside_visitante">Offsite Visitante:</label>
+                <input type="number" onclick="validarFecha()" value="0" name="offside_visitante" id="offside_visitante" required>
+
+                <label for="corner_local">Corner Local:</label>
+                <input type="number" onclick="validarFecha()" value="0" name="corner_local" id="corner_local" required>
+
+                <label for="corner_visitante">Corner Visitante:</label>
+                <input type="number" onclick="validarFecha()" value="0" name="corner_visitante" id="corner_visitante" required>
+
+                <div class="form-buttons">
+                    <button type="submit" id="agregarBtn">Agregar</button>
+                    <button type="button" id="limpiarBtn">Limpiar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+     <!-- Aquí se mostrarán los clubes ingresados -->
+     <h2>Listado de partidos</h2>
+     <table class="table table-bordered">
+         <thead>
+
+            <th scope="col">Equipo Local</th>
+            <th scope="col">Equipo Visitante</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Estadio</th>
+            <th scope="col">Gol Local</th>
+            <th scope="col">Gol Visitante</th>
+            <th scope="col">Posesión Local</th>
+            <th scope="col">Posesión Visitante</th>
+            <th scope="col">Tiros Local</th>
+            <th scope="col">Tiros Visitante</th>
+            <th scope="col">Tiros a Puerta Local</th>
+            <th scope="col">Tiros a Puerta Visitante</th>
+            <th scope="col">Faltas Local</th>
+            <th scope="col">Faltas Visitante</th>
+            <th scope="col">Tarjetas Amarillas Local</th>
+            <th scope="col">Tarjetas Amarillas Visitante</th>
+            <th scope="col">Offside Local</th>
+            <th scope="col">Offside Visitante</th>
+            <th scope="col">Corner Local</th>
+            <th scope="col">Corner Visitante</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+
+         </thead>
+         <tbody>
+             {% for d in data %}
+             <tr>
+                <td>{{d.equipo_local}}</td>
+                <td>{{d.equipo_visitante}}</td>
+                <td>{{d.fecha}}</td>
+                <td>{{d.nombre}}</td>
+                <td>{{d.goleslocales}}</td>
+                <td>{{d.golesvisitantes}}</td>
+                <td>{{d.porcentaje_posesion_local}}%</td>
+                <td>{{d.porcentaje_posesion_visitante}}%</td>
+                <td>{{d.tiros_local}}</td>
+                <td>{{d.tiros_visitante}}</td>
+                <td>{{d.tirosapuerta_local}}</td>
+                <td>{{d.tirosapuerta_visitante}}</td>
+                <td>{{d.faltas_local}}</td>
+                <td>{{d.faltas_visitante}}</td>
+                <td>{{d.tarjetas_amarillas_local}}</td>
+                <td>{{d.tarjetas_amarillas_visitante}}</td>
+                <td>{{d.offsite_local}}</td>
+                <td>{{d.offsite_visitante}}</td>
+                <td>{{d.corner_local}}</td>
+                <td>{{d.corner_visitante}}</td>
+                <td><button class="btn btn-primary btn-sm" id="btn-edit{{d.idCalendario_Ligas}}" data-bs-toggle="modal" data-bs-target="#modal{{d.idCalendario_Ligas}}">Editar</button></td>
+                <td><a href="{{url_for('deletePartido', idCalendario_Ligas=d.idCalendario_Ligas)}}" class="btn btn-danger btn-sm">Borrar</a></td>
+             </tr>
+
+            
+              <!--   modal  -->
+
+              <div class="modal fade" id="modal{{d.idCalendario_Ligas}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="tituloedit">Partido: {{d.equipo_local}} vs {{d.equipo_visitante}}</h5>
+                        <div></div>
+                        <p class="nota">***NOTA: Un partido que no ha sido jugado no debe contener datos estadisticos</p>
+                            <form class="modalform" action="/editPartido/{{d.idCalendario_Ligas}}" method="POST">
+                                <input type="text" value="{{d.idCalendario_Ligas}}" id="idpartido" hidden required>
+                                <label for="local">Equipo Local:</label>
+                                <input type="text" name="equipo_local" value="{{d.equipo_local}}" id="{{d.idCalendario_Ligas}}equipo_local"  readOnly required>
+                                
+                                <label for="visitante">Equipo Visitante:</label>
+                                <input type="text" value="{{d.equipo_visitante}}" readonly name="equipo_visitante" id="{{d.idCalendario_Ligas}}equipo_visitante" required>
+                
+                                <label for="fecha">Fecha:</label>
+                                <input type="date" value="{{d.fecha}}" name="fecha" id="{{d.idCalendario_Ligas}}fecha" required>
+                
+                                <label for="estadio">Estadio:</label>
+                                <select name="estadio">
+                                    <option value="{{d.nombre}}">{{d.nombre}}</option>
+                                    {% for n in Nombreestadio %}
+                                    <option value="{{n.nombre}}">{{n.nombre}}</option>
+                                    {% endfor %}
+                                </select>
+                
+                                <label for="gol-local">Gol Local:</label>
+                                <input type="number" value="{{d.goleslocales}}" name="gol_local" id="{{d.idCalendario_Ligas}}gol_local" required>
+                
+                                <label for="gol_visitante">Gol Visitante:</label>
+                                <input type="number" value="{{d.golesvisitantes}}"" name="gol_visitante" id="{{d.idCalendario_Ligas}}gol_visitante" required>
+                
+                                <label for="posesion_local">Posesión Local (%):</label>
+                                <input type="number" value="{{d.porcentaje_posesion_local}}" name="posesion_local" id="{{d.idCalendario_Ligas}}posesion_local" required>
+                
+                                <label for="posesion_visitante">Posesión Visitante (%):</label>
+                                <input type="number" value="{{d.porcentaje_posesion_visitante}}" name="posesion_visitante" id="{{d.idCalendario_Ligas}}posesion_visitante" required>
+                
+                                <label for="tiros_local">Tiros Local:</label>
+                                <input type="number" value="{{d.tiros_local}}" name="tiros_local" id="{{d.idCalendario_Ligas}}tiros_local" required>
+                
+                                <label for="tiros_visitante">Tiros Visitante:</label>
+                                <input type="number" value="{{d.tiros_visitante}}" name="tiros_visitante" id="{{d.idCalendario_Ligas}}tiros_visitante" required>
+                
+                                <label for="tiros_puerta_local">Tiros a Puerta Local:</label>
+                                <input type="number" value="{{d.tirosapuerta_local}}" name="tiros_puerta_local" id="{{d.idCalendario_Ligas}}tiros_puerta_local" required>
+                
+                                <label for="tiros_puerta_visitante">Tiros a Puerta Visitante:</label>
+                                <input type="number" value="{{d.tirosapuerta_visitante}}" name="tiros_puerta_visitante" id="{{d.idCalendario_Ligas}}tiros_puerta_visitante" required>
+                
+                                <label for="faltas_local">Faltas Local:</label>
+                                <input type="number" value="{{d.faltas_local}}" name="faltas_local" id="{{d.idCalendario_Ligas}}faltas_local" required>
+                
+                                <label for="faltas_visitante">Faltas Visitante:</label>
+                                <input type="number" value="{{d.faltas_visitante}}" name="faltas_visitante" id="{{d.idCalendario_Ligas}}faltas_visitante" required>
+                
+                                <label for="tarjetas_amarillas_local">Tarjetas Amarillas Local:</label>
+                                <input type="number" value="{{d.tarjetas_amarillas_local}}" name="tarjetas_amarillas_local" id="{{d.idCalendario_Ligas}}tarjetas_amarillas_local" required>
+                
+                                <label for="tarjetas_amarillas_visitante">Tarjetas Amarillas Visitante:</label>
+                                <input type="number" value="{{d.tarjetas_amarillas_visitante}}" name="tarjetas_amarillas_visitante" id="{{d.idCalendario_Ligas}}tarjetas_amarillas_visitante" required>
+                
+                                <label for="offside_local">Offsite Local:</label>
+                                <input type="number" value="{{d.offsite_local}}" name="offside_local" id="{{d.idCalendario_Ligas}}offside_local" required>
+                
+                                <label for="offside_visitante">Offsite Visitante:</label>
+                                <input type="number" value="{{d.offsite_visitante}}" name="offside_visitante" id="{{d.idCalendario_Ligas}}offside_visitante" required>
+                
+                                <label for="corner_local">Corner Local:</label>
+                                <input type="number" value="{{d.corner_local}}" name="corner_local" id="{{d.idCalendario_Ligas}}corner_local" required>
+                
+                                <label for="corner_visitante">Corner Visitante:</label>
+                                <input type="number" value="{{d.corner_visitante}}" name="corner_visitante" id="{{d.idCalendario_Ligas}}corner_visitante" required>
+                            
+                    
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+
+                            </form>
+                </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>

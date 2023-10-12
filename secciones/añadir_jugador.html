@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liga - Gestión de Jugadores</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'añadir_jugador.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'header.css')}}">
+</head>
+<body>
+    <header>
+        <a href="{{url_for('Inicio')}}" class="logo">Liga</a>
+        <a href="{{url_for('LoginAdmin')}}" class="button_login">Cerrar Sesión</a>
+      </header>
+    <div class="container">
+        <h1>Gestión de Jugadores</h1>
+        <div class="jugador-form">
+            <h2>Agregar Jugador</h2>
+            {% with messages = get_flashed_messages() %} {% if messages %}
+        {% for message in messages %}
+        <div class="flash-error">{{ message }}</div>   
+        {% endfor %} {% endif %} {% endwith %}          
+            <form action="/AddJugador" id="jugadorForm" method="POST">
+                <label for="nombre">Nombre:</label>
+                
+                <input type="text" name="nombre" id="nombre" required>
+
+                <label for="apellido">Apellido:</label>
+                <input type="text" name="apellido" id="apellido" required>
+
+                <label for="edad">Edad:</label>
+                <input type="number" name="edad" id="edad" required>
+
+                <label for="posicion">Posición:</label>
+                <input type="text" name="posicion" id="posicion" required>
+
+                <label for="pais">País de Origen:</label>
+                <input type="text" name="pais" id="pais" required>
+
+                <label for="altura">Altura:</label>
+                <input type="text" name="altura" id="altura" required>
+
+                <label for="club">Nombre del Club:</label>
+                <select name="club" id="club" required>
+                    {% for nombre_club in nombre_clubes %}
+                        <option value="{{ nombre_club }}">{{ nombre_club }}</option>
+                    {% endfor %}
+                </select>
+                </select>
+
+                <div class="form-buttons">
+                    <button href="{{  url_for('addJugador')  }}" type="submit" class="agregarBtn">Agregar</button>
+                    <button type="button" id="limpiarBtn">Limpiar</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Aquí se mostrarán los clubes ingresados -->\
+    <div class="container">
+        <h2>Listado de Jugadores</h2>
+        {% with messages = get_flashed_messages() %} {% if messages %}
+            {% for message in messages %}
+            <div class="flash-error">{{ message }}</div>   
+            {% endfor %} {% endif %} {% endwith %}
+        <table class="table table-bordered">
+            <thead>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Edad</th>
+                <th scope="col">Posición</th>
+                <th scope="col">Pais de Origen</th>
+                <th scope="col">Altura (en CM)</th>
+                <th scope="col">Nombre de Club</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Borrar</th>
+            </thead>
+            <tbody>
+            {% for d in data %}
+                <tr>
+                    <td>{{ d.idJugadores }}</td>
+                    <td>{{ d.nombre }}</td>
+                    <td>{{ d.apellido }}</td>
+                    <td>{{ d.edad }}</td>
+                    <td>{{ d.posicion }}</td>
+                    <td>{{ d.pais_de_origen }}</td>
+                    <td>{{ d.altura_cm }}</td>
+                    <td>{{ d.nombre_club }}</td>
+                    <td><button class="btn btn-primary btn-sm" id="btn-edit{{ d.idJugadores }}" data-bs-toggle="modal" data-bs-target="#modal{{ d.idJugadores }}">Editar</button></td>
+                    <td><a href="{{ url_for('deleteJugador', id=d.idJugadores ) }}" class="btn btn-danger btn-sm">Borrar</a></td>
+                </tr>
+
+
+            <!--   modal  -->
+
+            <div class="modal fade" id="modal{{ d.idJugadores }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.nombre}}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                            <form action="/editJugador" method="POST">
+                                {% with messages = get_flashed_messages() %} {% if messages %}
+                                {% for message in messages %}
+                                <div class="flash-error">{{ message }}</div>   
+                                {% endfor %} {% endif %} {% endwith %}
+                                <label for="id">ID:</label>
+                                <input type="text" name="id" value="{{ d.idJugadores }}" readonly>
+
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" name="nombre" value="{{ d.nombre }}" required>
+
+                                <label for="apellido">Apellido:</label>
+                                <input type="text" name="apellido" value="{{ d.apellido }}" required>
+
+                                <label for="edad">Edad</label>
+                                <input type="number" name="edad" value="{{ d.edad }}" required>
+
+                                <label for="posicion">Posicion</label>
+                                <input type="text" name="posicion" value="{{ d.posicion }}" required>
+
+                                <label for="pais">Pais de Origen:</label>
+                                <input type="text" name="pais" value="{{ d.pais_de_origen }}" required>
+
+                                <label for="altura">Altura en CM:</label>
+                                <input type="text" name="altura" value="{{ d.altura_cm }}" required>
+
+                                <label for="altura">Nombre de Club:</label>
+                                <select name="club" id="club" required>
+                                    {% for nombre_club in nombre_clubes %}
+                                        <option value="{{ nombre_club }}">{{ nombre_club }}</option>
+                                    {% endfor %}
+                                </select>
+                            
+                    
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+
+                    </form>
+                </div>
+                </div>
+                </div>
+            </div>
+            {%endfor%}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>   

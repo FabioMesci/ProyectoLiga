@@ -1,0 +1,40 @@
+body {
+    background-color: #ffffff;
+  }
+
+  #container {
+    padding-top: 50px;
+  }
+h1, p{
+    color: #333;
+}
+a.opcion{
+  display: contents;
+}
+a.opcion:hover{
+    text-decoration: none;
+}
+  .card {
+    position: flex;
+    justify-self: center;
+    transition: 0.5s ease;
+    background-color: #333;
+    border: solid 3px;
+    border-color:#868686;
+    color: #ffffff;
+    padding: 20px 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 15%;
+    min-width: 120px; 
+    height: 13%;
+    min-height: 10px;
+    font-size: 100%;
+  }
+
+  .card:hover{
+    transform: scale(1.5);
+    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.3);
+  }

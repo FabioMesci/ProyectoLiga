@@ -1,0 +1,120 @@
+:root {
+    --primary-color: #ffffff;
+    --secondary-color: #ffffff;
+    --accent-color: #636363;
+    --highlight-color: #7a7a7a;
+  }
+body {
+background-color: var(--secondary-color);
+}
+
+h1  {
+color: rgb(0, 0, 0);
+}
+label{
+    color: rgb(255, 255, 255);
+    }
+    
+input[type=text], input[type=password] {
+background-color: white;
+color: rgb(0, 0, 0);
+border-color: var(--secondary-color);
+}
+.btn-primary {
+background-color: rgb(255, 255, 255);
+color: #333;
+border-color: white;
+}
+.btn-primary:hover {
+    background-color: rgb(77, 77, 77);
+    color: #fff; 
+    border-color: white;
+  }
+
+
+.btn-secondary {
+background-color: var(--highlight-color);
+color: white;
+border-color: var(--highlight-color);
+}
+
+.btn-link {
+color: var(--accent-color);
+}
+
+#login-form {
+background-color: #333;
+border: 2px solid var(--highlight-color);
+padding: 20px;
+border-radius: 10px;
+}
+
+#login-form:focus-within {
+border-color: var(--accent-color);
+}
+
+
+
+/* .container-header{
+    background-color: #BF9742;
+    max-width: 1200px;
+    text-align: center;
+    border-radius: 10px;
+} */
+
+.container-form{
+    position: relative;
+    margin: auto;
+
+    background-color: transparent;
+    max-width: 1200px;
+    text-align: center;
+    border-radius: 10px;
+}
+/* .header-section{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.header-section:hover{
+    margin: 11px 5px 5px 11px;
+    transition: 0.2s;
+} */
+
+/* .logo{
+    width: 80px;
+    height: auto;
+    cursor: pointer;
+    margin: 10px 0px 0px 10px;
+    transition: 0.2s;
+}
+
+.logo:hover{
+    width: 82px;
+    height: auto;
+    transition: 0.2s;
+} */
+
+/* .btn-header{
+    cursor: pointer;
+    border-radius: 5px;
+    border: #BF9742;
+    color: #523c18;
+    text-transform: uppercase;
+    background-color: #BF9742;
+    padding: 7px 12px;
+    margin: 0px 0px 0px 15px;
+    transition: 0.2s;
+} */
+
+
+.btn-header:hover{
+    border: 2px solid #523c18;
+    margin: 15px;
+    color: whitesmoke;
+    font-size: 17px;
+    transition: 0.2s;
+}
+

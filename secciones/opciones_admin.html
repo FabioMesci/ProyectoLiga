@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="opciones_cliente.css" />
+  <title>Liga</title>
+  <!-- Agrega el enlace al archivo CSS de Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{url_for('static', filename = 'opciones_admin.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename = 'header.css')}}">
+</head>
+
+<header>
+  <a href="{{url_for('Inicio')}}" class="logo">Liga</a>
+  <a href="{{url_for('LoginAdmin')}}" class="button_login">Cerrar Sesión</a>
+</header>
+<body>
+
+  <div id="container" class="container text-center">
+    <h1>Bienvenido</h1>
+    <p>Seleccione una opción:</p>
+    <a href="{{ url_for('AñadirClub') }}" class="opcion"><div class="card">Añadir Club</div></a>
+    <a href="{{ url_for('AñadirPartido') }}"class="opcion"><div class="card">Añadir Partidos</div></a>
+    <a href="{{ url_for('AñadirJugador') }}"class="opcion"><div class="card">Añadir Jugadores</div></a>
+    <a href="{{ url_for('EditarPosicionClub') }}"class="opcion"><div class="card">Editar datos de posicion de Club</div></a>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liga - Tabla de Posiciones</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'header.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'style.css')}}">
+</head>
+
+<header>
+    <a href="{{url_for('Inicio')}}" class="logo">Liga</a>
+    <a href="{{url_for('LoginAdmin')}}" class="button_login">Iniciar Sesión</a>
+</header>
+
+<body>
+    <div class="container">
+        <h1>Tabla de Posiciones</h1>
+        {% with messages = get_flashed_messages() %} {% if messages %}
+            {% for message in messages %}
+                <div class="flash-error">{{ message }}</div>   
+            {% endfor %} {% endif %} {% endwith %}
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre del Club</th>
+                        <th>Partidos Jugados</th>
+                        <th>Victorias</th>
+                        <th>Derrotas</th>
+                        <th>Empates</th>
+                        <th>Gol a Favor</th>
+                        <th>Gol en Contra</th>
+                        <th>Puntaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se mostrarían los datos de la tabla de posiciones -->
+                    {% for d in data %}
+                    <tr>
+                        <td>{{ d.idTabla_posiciones }}</td>
+                        <td><a href="{{ url_for('MostrarClubes', club=d.nombre_club) }}">{{ d.nombre_club }}</a></td>
+                        <td>{{ d.partidos_jugados }}</td>
+                        <td>{{ d.victorias }}</td>
+                        <td>{{ d.derrotas }}</td>
+                        <td>{{ d.empates }}</td>
+                        <td>{{ d.gol_a_favor }}</td>
+                        <td>{{ d.gol_en_contra }}</td>
+                        <td>{{ d.puntaje }}</td>
+                    </tr>
+                   {% endfor %}
+                    <!-- Agregar más filas según los datos disponibles -->
+                </tbody>
+            </table>
+        </div>
+        <div class="button-container">
+            <a href="{{url_for('MostrarPartidos')}}" class="button">Partidos</a>
+        </div>
+    </div class="container">
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

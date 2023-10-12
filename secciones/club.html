@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liga - Club</title>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'header.css')}}">
+</head>
+<body>
+    <header>
+        <a href="{{url_for('Inicio')}}" class="logo">Liga</a>
+        <a href="{{url_for('LoginAdmin')}}" class="button_login">Iniciar Sesión</a>
+      </header>
+    <main>
+        {% for d in data %}
+            <h1>{{ d.nombre_club }}</h1>
+            <div class="club-info">
+                <p><strong>Estadio:</strong> {{ d.nombre_estadio }}</p>
+                <p><strong>Ubicación:</strong> {{ d.ubicación }}</p>
+                <p><strong>Director Técnico:</strong> {{ d.director_tecnico }}</p>
+                <p><strong>Año de Fundación:</strong> {{ d.año_fundacion }}</p>
+                <p><strong>Presidente:</strong> {{ d.presidente_club }}</p>
+            </div>
+
+            <h2>Jugadores</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Edad</th>
+                            <th>Posición</th>
+                            <th>País de Origen</th>
+                            <th>Altura</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for d in data %}
+                        <tr>
+                            <td>{{ d.idJugadores }}</td>
+                            <td>{{ d.nombre }}</td>
+                            <td>{{ d.apellido }}</td>
+                            <td>{{ d.edad }}</td>
+                            <td>{{ d.posicion }}</td>
+                            <td>{{ d.pais_de_origen }}</td>
+                            <td>{{ d.altura_cm }} cm</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+    </main>
+</body>
+</html>

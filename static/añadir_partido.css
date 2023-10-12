@@ -1,0 +1,131 @@
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.login-btn {
+    font-size: 16px;
+}
+
+.container{
+    width: 500px;
+    padding: 20px;
+    font-size: smaller;
+    overflow: hidden;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+.partido-form,
+.partido-list {
+    margin: 20px auto;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+form button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.editBtn,
+.deleteBtn {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.partido-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.partido-list li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.partido-list li:last-child {
+    border-bottom: none;
+}
+
+.partido-list span {
+    flex-basis: 50%;
+}
+
+.partido-list button {
+    margin-left: 10px;
+}
+
+table{
+    margin-right: 10px;
+    margin-left: 5px;
+    font-size: xx-small;
+}
+
+.flash-error{
+    font-size: small;
+    display: inline-block;
+    background-color: #ffebe8;
+    border: 1px solid #dd3c10;
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 3px;
+}
+
+.modal-body{
+    max-width: 600px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+.tituloedit{
+    display: inline;
+    overflow: visible;
+}
+
+.nota{
+    font-size: small;
+    font-weight: bold;
+    border: #333 solid;
+    background-color: #ccc;
+    color: #000000;
+    padding: 10px;
+}

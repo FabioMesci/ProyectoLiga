@@ -1,0 +1,56 @@
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0px;
+}
+
+.left-side {
+    display: flex;
+    align-items: center;
+}
+
+.right-side {
+    display: flex;
+    align-items: center;
+}
+
+a.button_login, a.logo, a.button_volver {
+    text-decoration: none;
+    color: #fff;
+}
+
+a.button_login, a.logo:hover, a.button_volver:hover {
+    color: #ccc;
+}
+
+a.logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0px;
+    width: 80px;
+    height: auto;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+a.logo:hover {
+    width: 82px;
+    height: auto;
+    transition: 0.2s;
+}
+
+a.button_login, a.button_volver {
+    text-decoration: none;
+    color: #fff;
+    border: #ccc solid 2px;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-size: 16px;
+}
+
+a.button_login:hover, a.button_volver:hover {
+    background-color: #ccc;
+}

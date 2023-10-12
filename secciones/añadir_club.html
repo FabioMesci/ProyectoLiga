@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liga - Gestión de Clubes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'añadir_club.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'header.css')}}">
+</head>
+<body>
+    <header>
+        <a href="{{url_for('Inicio')}}" class="logo">Liga</a>
+        <a href="{{url_for('LoginAdmin')}}" class="button_login">Cerrar Sesión</a>
+      </header>
+    <div class="container">
+        <h1>Gestión de Clubes</h1>
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        {% for message in messages %}
+        <div class="flash-error">{{ message }}</div>   
+        {% endfor %} {% endif %} {% endwith %}
+        <div class="club-form">
+            <h2>Agregar Club</h2>
+
+            <form action="/addClub" method="POST">
+                <label for="nombre">Nombre del Club:</label>
+                <input type="text" name="nombre" required>                
+
+                <label for="tecnico">Director Técnico:</label>
+                <input type="text" name="tecnico" required>
+
+                <label for="fundacion">Año de Fundación:</label>
+                <input type="number" name="añofundacion" required>
+
+                <label for="presidente">Presidente del Club:</label>
+                <input type="text" name="presidente" required>
+
+                <label for="presidente">Estadio del Club:</label>
+                <input type="text" name="estadio" required>
+
+                <label for="presidente">Ubicación:</label>
+                <input type="text" name="ubicacion" required>
+
+                <div class="form-buttons">
+                    <button type="submit" id="agregarBtn">Agregar</button>
+                    <button type="button" id="limpiarBtn">Limpiar</button>
+                </div>
+            </form>
+        </div>
+
+            <!-- Aquí se mostrarán los clubes ingresados -->
+            <h2>Listado de Clubes</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <th scope="col">Nombre del club</th>
+                    <th scope="col">Director Tecnico</th>
+                    <th scope="col">Año de fundacion</th>
+                    <th scope="col">Presidente del club</th>
+                    <th scope="col">Estadio del club</th>
+                    <th scope="col">Ubicación</th>
+                    <th scope="col">Id tabla de posiciones</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Borrar</th>
+                </thead>
+                <tbody>
+                    {% for d in data %}
+                    <tr>
+                        <td>{{d.nombre_club}}</td>
+                        <td>{{d.director_tecnico}}</td>
+                        <td>{{d.año_fundacion}}</td>
+                        <td>{{d.presidente_club}}</td>
+                        <td>{{d.nombre}}</td>
+                        <td>{{d.ubicación}}</td>
+                        <td>{{d.fk_club_tabla_posiciones}}</td>
+                        <td><button class="btn btn-primary btn-sm" id="btn-edit{{d.fk_club_tabla_posiciones}}" data-bs-toggle="modal" data-bs-target="#modal{{d.fk_club_tabla_posiciones}}">Editar</button></td>
+                        <td><a href="{{url_for('delete', nombre_club=d.nombre_club, fk_club_tabla_posiciones=d.fk_club_tabla_posiciones, estadio=d.nombre)}}" class="btn btn-danger btn-sm">Borrar</a></td>
+                    </tr>
+
+
+                <!--   modal  -->
+
+                <div class="modal fade" id="modal{{d.fk_club_tabla_posiciones}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.nombre_club}}</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                                <form action="/edit/{{d.fk_club_tabla_posiciones}}" method="POST">
+                                    <label for="nombre">Nombre del Club:</label>
+                                    <input type="text" name="nombre" value="{{d.nombre_club}}" required>
+
+                                    <label for="tecnico">Director Técnico:</label>
+                                    <input type="text" name="tecnico" value="{{d.director_tecnico}}" required>
+
+                                    <label for="fundacion">Año de Fundación:</label>
+                                    <input type="number" name="añofundacion" value="{{d.año_fundacion}}" required>
+
+                                    <label for="presidente">Presidente del Club:</label>
+                                    <input type="text" name="presidente" value="{{d.presidente_club}}" required>
+
+                                    <label for="presidente">Estadio del Club:</label>
+                                    <input type="text" name="estadio" value="{{d.nombre}}" required>
+
+                                    <label for="presidente">Ubicación:</label>
+                                    <input type="text" name="ubicacion" value="{{d.ubicación}}" required>
+                                
+                        
+                          <button type="submit" class="btn btn-primary">Save changes</button>
+
+                        </form>
+                    </div>
+                      </div>
+                    </div>
+                  </div>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div class="container">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>

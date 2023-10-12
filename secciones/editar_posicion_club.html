@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liga - Posición de Club</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'añadir_posicion_club.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'header.css')}}">
+</head>
+<body>
+    <header>
+        <a href="{{url_for('Inicio')}}" class="logo">Liga</a>
+        <a href="{{url_for('LoginAdmin')}}" class="button_login">Cerrar Sesión</a>
+      </header>
+    <div class="container">
+        <h2>Listado de Posiciones de los Clubes</h2>
+        {% with messages = get_flashed_messages() %} {% if messages %}
+            {% for message in messages %}
+            <div class="flash-error">{{ message }}</div>   
+            {% endfor %} {% endif %} {% endwith %}
+        <table class="table table-bordered">
+            <thead>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre del Club</th>
+                <th scope="col">Partidos Jugados</th>
+                <th scope="col">Victorias</th>
+                <th scope="col">Derrotas</th>
+                <th scope="col">Empates</th>
+                <th scope="col">Goles a favor</th>
+                <th scope="col">Goles en contra</th>
+                <th scope="col">Puntaje</th>
+                <th scope="col">Editar</th>
+            </thead>
+            <tbody>
+            {% for d in data %}
+                <tr>
+                    <td>{{ d.idTabla_posiciones }}</td>
+                    <td>{{ d.nombre_club }}</td>
+                    <td>{{ d.partidos_jugados }}</td>
+                    <td>{{ d.victorias }}</td>
+                    <td>{{ d.derrotas }}</td>
+                    <td>{{ d.empates }}</td>
+                    <td>{{ d.gol_a_favor }}</td>
+                    <td>{{ d.gol_en_contra }}</td>
+                    <td>{{ d.puntaje }}</td>
+                    <td><button class="btn btn-primary btn-sm" id="btn-edit{{ d.idTabla_posiciones }}" data-bs-toggle="modal" data-bs-target="#modal{{ d.idTabla_posiciones }}">Editar</button></td>
+                </tr>
+             
+
+                <!--   modal  -->
+
+                <div class="modal fade" id="modal{{ d.idTabla_posiciones }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.nombre}}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                                <form action="/editPosicion" method="POST">
+                                    {% with messages = get_flashed_messages() %} {% if messages %}
+                                    {% for message in messages %}
+                                    <div class="flash-error">{{ message }}</div>   
+                                    {% endfor %} {% endif %} {% endwith %}
+                                    <label for="id">ID:</label>
+                                    <input type="text" name="id" value="{{ d.idTabla_posiciones }}" readonly>
+    
+                                    <label for="nombre_club">Nombre del Club:</label>
+                                    <input type="text" name="nombre_club" value="{{ d.nombre_club }}" readonly>
+    
+                                    <label for="partidos_jugados">Partidos jugados:</label>
+                                    <input type="number" name="partidos_jugados" value="{{ d.partidos_jugados }}" required>
+    
+                                    <label for="victorias">Victorias:</label>
+                                    <input type="number" name="victorias" value="{{ d.victorias }}" required>
+    
+                                    <label for="derrotas">Derrotas:</label>
+                                    <input type="number" name="derrotas" value="{{ d.derrotas }}" required>
+    
+                                    <label for="empates">Empates:</label>
+                                    <input type="number" name="empates" value="{{ d.empates }}" required>
+    
+                                    <label for="gol_a_favor ">Goles a favor:</label>
+                                    <input type="number" name="gol_a_favor" value="{{ d.gol_a_favor }}" required>
+                                    
+                                    <label for="gol_en_contra">Goles en contra:</label>
+                                    <input type="number" name="gol_en_contra" value="{{ d.gol_en_contra }}" required>
+                                    
+                                    <label for="puntaje">Puntaje:</label>
+                                    <input type="number" name="puntaje" value="{{ d.puntaje }}" required>
+
+                                
+                        
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    
+                        </form>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            {%endfor%}
+    
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>  
+</body>
+</html>
